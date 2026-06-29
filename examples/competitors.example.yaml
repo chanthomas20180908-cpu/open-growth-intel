@@ -1,0 +1,168 @@
+competitors:
+
+  - name: competitor-a
+    display: Competitor A
+    aliases:
+      - "Competitor A"
+      - "CompetitorA"
+    domains:
+      - "example.com"
+    giq:
+      - "本周期有哪些新 SEO 落地页或内容发布？"
+      - "付费广告素材或落地页有变化吗？"
+      - "定价 / Free tier 有调整吗？"
+      - "有没有新的 KOL/Creator 合作或社媒高互动内容？"
+      - "产品有新版本或重大功能更新吗？"
+    monitoring:
+      priority: full
+      action_scope:
+        - website
+        - product
+        - pricing
+        - seo_content
+        - social
+        - paid_ads
+        - reviews
+        - creator
+        - partnerships
+        - media
+        - developer
+      state_mode: structured_crud
+      change_types:
+        - created
+        - content_updated
+        - commercial_updated
+        - removed
+        - metadata_only
+        - unverified
+      deletion_confirmation_runs: 2
+      mass_lastmod_threshold: 200
+      sitemap_policy: "URL 新增/消失可作为线索；lastmod 单独变化不得写成内容更新"
+      content_policy: "关键页每次提取；文章页建立轻量指纹；正文变化时才保留前后压缩文本"
+    sources:
+      website:
+        pages:
+          - https://example.com/
+          - https://example.com/pricing
+          - https://example.com/blog
+          - https://example.com/product
+        discovery_paths:
+          - sitemap
+          - rss
+          - changelog
+          - help_center
+      social:
+        x:
+          account_url: https://x.com/example
+          search_terms: ["CompetitorA", "example.com"]
+        youtube:
+          channel_url: null
+          search_terms: ["CompetitorA"]
+        linkedin:
+          company_url: null
+          people_urls: []
+          search_terms: ["CompetitorA"]
+        tiktok:
+          account_url: null
+          search_terms: ["CompetitorA"]
+        instagram:
+          account_url: null
+          search_terms: ["CompetitorA"]
+      launch_and_distribution:
+        product_hunt_url: null
+        marketplaces: []
+        search_terms:
+          - "CompetitorA launch"
+          - "CompetitorA partnership"
+      reviews:
+        g2_url: null
+        trustpilot_url: null
+        capterra_url: null
+        app_store_url: null
+        google_play_url: null
+      media:
+        search_terms:
+          - "CompetitorA interview"
+          - "CompetitorA funding"
+      github:
+        repo: null
+      reddit:
+        keywords:
+          - "competitor-a"
+        subreddits:
+          - "AIVideo"
+          - "artificial"
+      ads:
+        meta_page_id: null
+        search_name: "CompetitorA"
+        advertiser_names:
+          - "CompetitorA"
+        domains:
+          - "example.com"
+      hn:
+        keywords:
+          - "competitor-a"
+
+  - name: competitor-b
+    display: Competitor B
+    aliases:
+      - "Competitor B"
+      - "CompetitorB"
+    domains:
+      - "example.org"
+    giq:
+      - "本周期有哪些新 SEO 落地页或内容发布？"
+      - "付费广告素材或卖点有变化吗？"
+      - "定价 / Free tier 有调整吗？"
+      - "有没有新的社媒营销动作或高互动内容？"
+      - "产品有新功能或能力更新吗？"
+    monitoring:
+      priority: full
+      action_scope:
+        - website
+        - product
+        - pricing
+        - seo_content
+        - social
+        - paid_ads
+        - reviews
+        - creator
+        - partnerships
+        - media
+      state_mode: structured_crud
+      change_types:
+        - created
+        - content_updated
+        - commercial_updated
+        - removed
+        - metadata_only
+        - unverified
+      deletion_confirmation_runs: 2
+      mass_lastmod_threshold: 200
+    sources:
+      website:
+        pages:
+          - https://example.org/
+          - https://example.org/pricing
+          - https://example.org/blog
+        discovery_paths:
+          - sitemap
+          - rss
+      social:
+        x:
+          account_url: null
+          search_terms: ["CompetitorB"]
+        youtube:
+          channel_url: null
+          search_terms: ["CompetitorB"]
+      reviews:
+        trustpilot_url: null
+      ads:
+        search_name: "CompetitorB"
+        domains:
+          - "example.org"
+      reddit:
+        keywords:
+          - "competitor-b"
+        subreddits:
+          - "AIVideo"

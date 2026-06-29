@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="{{ lang | default('zh-CN') }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }} · {{ brand_name }}</title>
+<meta name="description" content="{{ meta_description }}">
+<link rel="canonical" href="{{ canonical_url }}">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:description" content="{{ meta_description }}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ canonical_url }}">
+<meta name="twitter:card" content="summary_large_image">
+<script>document.documentElement.setAttribute('data-theme',localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark'));</script>
+<style>
+:root{--bg:#050d03;--text:#dce8d0;--green:#8ed320;--green-b:#b4e855;--muted:#566050;--muted2:#7a8a70;--line:#1a2a15;--panel:#0d180a;--amber:#ffa000;--red:#f87171;--blue:#8090ff;--violet:#a78bfa;}
+[data-theme="light"]{--bg:#ffffff;--text:#1f2328;--green:#1a7f37;--green-b:#2da44e;--muted:#656d76;--muted2:#818c98;--line:#d0d7de;--panel:#f6f8fa;--amber:#b45309;--red:#cf222e;--blue:#0969da;--violet:#8250df;}
+[data-theme="light"] body{background:var(--bg);color:var(--text);}
+[data-theme="light"] h1{background:linear-gradient(135deg,var(--green),var(--green-b));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+[data-theme="light"] .prog-item{background:var(--panel);border-color:var(--line);}
+[data-theme="light"] th{border-bottom-color:var(--line);}
+[data-theme="light"] td{border-bottom-color:rgba(208,215,222,.5);}
+[data-theme="light"] .section-title{border-bottom-color:var(--line);color:var(--text);}
+[data-theme="light"] .fbtn{border-color:var(--line);color:var(--muted2);}
+[data-theme="light"] .fbtn.active{background:rgba(26,127,55,.1);color:var(--green);border-color:rgba(26,127,55,.4);}
+[data-theme="light"] .fbtn:hover{border-color:rgba(26,127,55,.5);color:var(--green);}
+[data-theme="light"] .filter-sep{background:var(--line);}
+[data-theme="light"] .badge.todo{background:rgba(31,35,40,.06);color:var(--muted2);border-color:var(--line);}
+[data-theme="light"] .badge.p0{background:rgba(9,105,218,.08);color:#0969da;border-color:rgba(9,105,218,.2);}
+[data-theme="light"] .badge.p1{background:rgba(180,83,9,.07);color:#b45309;border-color:rgba(180,83,9,.2);}
+[data-theme="light"] .badge.p2{background:rgba(130,80,223,.08);color:#8250df;border-color:rgba(130,80,223,.2);}
+[data-theme="light"] .cell-text{color:var(--muted2);}
+[data-theme="light"] .cell-empty{color:var(--line);}
+[data-theme="light"] .sec-badge{border-color:rgba(26,127,55,.3);color:var(--green);background:rgba(26,127,55,.06);}
+[data-theme="light"] .sec-badge.has-todo{border-color:rgba(180,83,9,.3);color:var(--amber);background:rgba(180,83,9,.06);}
+[data-theme="light"] tr.task-row:hover td{background:rgba(26,127,55,.03);}
+#theme-toggle{background:none;border:1px solid var(--line);color:var(--muted);cursor:pointer;border-radius:6px;padding:2px 9px;font-size:13px;font-family:inherit;transition:all .12s;margin-left:auto;flex-shrink:0;}
+#theme-toggle:hover{border-color:var(--green);color:var(--green);}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC',sans-serif;
+  min-height:100vh;padding:40px 24px;
+}
+a{color:var(--green);text-decoration:none;}
+a:hover{text-decoration:underline;opacity:.85;}
+.topbar{font-size:.78rem;color:var(--muted);margin-bottom:28px;display:flex;align-items:center;gap:6px;}
+.topbar a{color:var(--muted);}
+.topbar a:hover{color:var(--green);}
+.sep{color:var(--line);}
+h1{font-size:1.6rem;font-weight:800;margin-bottom:4px;
+   background:linear-gradient(135deg,#8ed320,#b4e855);
+   -webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.meta{color:var(--muted);font-size:.8rem;margin-bottom:28px;}
+.meta span{color:var(--muted2);}
+.progress-bar{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:32px;}
+.prog-item{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 20px;min-width:110px;}
+.prog-item.highlight{border-color:rgba(142,211,32,.35);}
+.prog-label{font-size:.7rem;color:var(--muted2);letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px;}
+.prog-val{font-size:1.4rem;font-weight:800;color:var(--green);}
+.prog-sub{font-size:.7rem;color:var(--muted);margin-top:2px;}
+.filterbar{display:flex;gap:8px;margin-bottom:28px;align-items:center;flex-wrap:wrap;}
+.filterbar label{font-size:.7rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em;}
+.fbtn{padding:4px 12px;border-radius:20px;border:1px solid var(--line);background:transparent;cursor:pointer;font-size:.75rem;color:var(--muted2);transition:all .12s;}
+.fbtn:hover{border-color:rgba(142,211,32,.5);color:var(--green);}
+.fbtn.active{background:rgba(142,211,32,.12);color:var(--green);border-color:rgba(142,211,32,.4);font-weight:600;}
+.filter-sep{width:1px;height:18px;background:var(--line);margin:0 4px;flex-shrink:0;}
+.section{margin-bottom:40px;}
+.section-title{font-size:.9rem;font-weight:700;color:var(--text);padding:10px 0;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;margin-bottom:0;}
+.sec-badge{font-size:.68rem;font-weight:600;padding:2px 8px;border-radius:10px;border:1px solid rgba(142,211,32,.3);color:var(--green);background:rgba(142,211,32,.08);}
+.sec-badge.has-todo{border-color:rgba(255,160,0,.3);color:var(--amber);background:rgba(255,160,0,.08);}
+table{width:100%;border-collapse:collapse;font-size:.78rem;}
+th{text-align:left;padding:8px 12px;color:var(--muted);font-weight:600;letter-spacing:.04em;text-transform:uppercase;font-size:.68rem;border-bottom:1px solid var(--line);white-space:nowrap;}
+td{padding:12px 12px;border-bottom:1px solid rgba(26,42,21,.6);vertical-align:top;}
+tr.task-row:hover td{background:rgba(142,211,32,.03);}
+tr.task-row.hidden{display:none;}
+.badge{display:inline-block;padding:2px 8px;border-radius:6px;font-size:.68rem;font-weight:600;white-space:nowrap;}
+.badge.done   {background:rgba(142,211,32,.1); color:var(--green); border:1px solid rgba(142,211,32,.25);}
+.badge.doing  {background:rgba(255,160,0,.1);  color:var(--amber); border:1px solid rgba(255,160,0,.25);}
+.badge.todo   {background:rgba(255,255,255,.05);color:var(--muted2);border:1px solid rgba(255,255,255,.1);}
+.badge.blocked{background:rgba(248,113,113,.1); color:var(--red);border:1px solid rgba(248,113,113,.25);}
+.badge.p0{background:rgba(100,140,255,.1);color:var(--blue);border:1px solid rgba(100,140,255,.2);}
+.badge.p1{background:rgba(255,200,50,.07);color:var(--amber);border:1px solid rgba(255,200,50,.2);}
+.badge.p2{background:rgba(167,139,250,.1);color:var(--violet);border:1px solid rgba(167,139,250,.2);}
+.task-title{font-size:.82rem;font-weight:600;color:var(--text);line-height:1.45;}
+.cell-text{font-size:.75rem;color:var(--muted2);line-height:1.65;word-break:keep-all;}
+.cell-text.outcome{color:var(--green);}
+.cell-empty{font-size:.75rem;color:var(--line);}
+.date-cell{font-size:.72rem;color:var(--muted);white-space:nowrap;}
+.ev-links{display:flex;flex-direction:column;gap:3px;}
+.ev-link{font-size:.72rem;color:var(--green);opacity:.7;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:240px;display:block;}
+.ev-link:hover{opacity:1;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="{{ home_url | default('../index.html') }}">{{ brand_name }}</a>
+  <span class="sep">/</span>
+  <span>{{ breadcrumb | default(title) }}</span>
+  <button id="theme-toggle" onclick="toggleTheme()" title="切换亮/暗色">☀</button>
+</div>
+
+<h1>{{ title }}</h1>
+<div class="meta">{{ meta_line | safe }}</div>
+
+<div class="progress-bar" id="stats"></div>
+
+<div class="filterbar">
+  <label>状态</label>
+  <button class="fbtn fstatus active" onclick="setStatus('all',this)">全部</button>
+  <button class="fbtn fstatus" onclick="setStatus('doing',this)">进行中</button>
+  <button class="fbtn fstatus" onclick="setStatus('todo',this)">待办</button>
+  <button class="fbtn fstatus" onclick="setStatus('done',this)">已完成</button>
+  <button class="fbtn fstatus" onclick="setStatus('blocked',this)">阻塞</button>
+  <div class="filter-sep"></div>
+  <label>优先级</label>
+  <button class="fbtn fpriority active" onclick="setPriority('all',this)">全部</button>
+  <button class="fbtn fpriority" onclick="setPriority('P0',this)">P0</button>
+  <button class="fbtn fpriority" onclick="setPriority('P1',this)">P1</button>
+  <button class="fbtn fpriority" onclick="setPriority('P2',this)">P2</button>
+</div>
+
+<div id="streams"></div>
+
+<script type="application/json" id="domain-data">
+{{ domain_data_json | default('{"streams":[]}') | safe }}
+</script>
+
+<script>
+(function () {
+  var ROOT = '{{ relative_root | default('../') }}';
+  var DOMAIN = JSON.parse(document.getElementById('domain-data').textContent);
+  var STATUS_LABEL = { done:'已完成', doing:'进行中', todo:'待办', blocked:'阻塞' };
+  function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function cellText(val, cls) { if (!val) return '<span class="cell-empty">—</span>'; return '<div class="cell-text'+(cls?' '+cls:'')+'">'+ esc(val) +'</div>'; }
+  function renderStats() {
+    var total=0, done=0, doing=0, todo=0;
+    DOMAIN.streams.forEach(function(s){ s.tasks.forEach(function(t){ total++; if(t.status==='done') done++; else if(t.status==='doing') doing++; else if(t.status==='todo') todo++; }); });
+    document.getElementById('stats').innerHTML =
+      '<div class="prog-item highlight"><div class="prog-label">全部任务</div><div class="prog-val">'+total+'</div><div class="prog-sub">'+DOMAIN.streams.length+' 个模块</div></div>'+
+      '<div class="prog-item"><div class="prog-label">已完成</div><div class="prog-val">'+done+'</div><div class="prog-sub">'+(total?Math.round(done/total*100):0)+'%</div></div>'+
+      '<div class="prog-item"><div class="prog-label">进行中</div><div class="prog-val">'+doing+'</div><div class="prog-sub">活跃</div></div>'+
+      '<div class="prog-item"><div class="prog-label">待办</div><div class="prog-val">'+todo+'</div><div class="prog-sub">待启动</div></div>';
+  }
+  function renderStreams() {
+    var container = document.getElementById('streams');
+    DOMAIN.streams.forEach(function(stream) {
+      var doneCount = stream.tasks.filter(function(t){return t.status==='done';}).length;
+      var hasActive = stream.tasks.some(function(t){return t.status==='doing'||t.status==='todo';});
+      var rowsHtml = '';
+      stream.tasks.forEach(function(task) {
+        var rowId = stream.id+'-'+task.id;
+        var statusLabel = STATUS_LABEL[task.status] || task.status;
+        var priorityHtml = task.priority ? '<span class="badge '+task.priority.toLowerCase()+'">'+esc(task.priority)+'</span>' : '';
+        var pathsHtml = (task.paths||[]).map(function(p){ var href = ROOT + p.path; return '<a class="ev-link" href="'+esc(href)+'" title="'+esc(p.label)+'" onclick="event.stopPropagation()">'+esc(p.label)+'</a>'; }).join('');
+        rowsHtml += '<tr class="task-row" id="row-'+rowId+'" data-status="'+task.status+'" data-priority="'+(task.priority||'')+'">'+
+          '<td><span class="badge '+task.status+'">'+statusLabel+'</span></td>'+
+          '<td>'+priorityHtml+'</td>'+
+          '<td><div class="task-title">'+esc(task.title)+'</div></td>'+
+          '<td>'+cellText(task.purpose)+'</td>'+
+          '<td>'+cellText(task.definition)+'</td>'+
+          '<td>'+cellText(task.scope)+'</td>'+
+          '<td>'+cellText(task.outcome,'outcome')+'</td>'+
+          '<td><span class="date-cell">'+esc(task.done_date||'')+'</span></td>'+
+          '<td><div class="ev-links">'+pathsHtml+'</div></td>'+
+          '</tr>';
+      });
+      var badgeCls = hasActive ? 'sec-badge has-todo' : 'sec-badge';
+      var section = document.createElement('div');
+      section.className = 'section';
+      section.dataset.streamId = stream.id;
+      section.innerHTML = '<div class="section-title">'+esc(stream.name)+' <span class="'+badgeCls+'">'+doneCount+' / '+stream.tasks.length+' 完成</span></div>'+
+        '<table><thead><tr>'+
+        '<th style="width:72px">状态</th><th style="width:44px">P</th><th style="min-width:200px">任务</th>'+
+        '<th style="min-width:160px">目的</th><th style="min-width:180px">定义</th><th style="min-width:160px">范围</th>'+
+        '<th style="min-width:220px">结论</th><th style="width:90px">日期</th><th style="min-width:200px">交付物</th>'+
+        '</tr></thead><tbody>'+rowsHtml+'</tbody></table>';
+      container.appendChild(section);
+    });
+  }
+  var activeStatus = 'all', activePriority = 'all';
+  function applyFilters() {
+    document.querySelectorAll('.task-row').forEach(function(row){ var matchS = activeStatus==='all' || row.dataset.status===activeStatus; var matchP = activePriority==='all' || row.dataset.priority===activePriority; row.classList.toggle('hidden', !(matchS && matchP)); });
+    document.querySelectorAll('.section').forEach(function(sec){ sec.style.display = sec.querySelectorAll('.task-row:not(.hidden)').length > 0 ? '' : 'none'; });
+  }
+  window.setStatus = function(val, btn) { activeStatus = val; document.querySelectorAll('.fstatus').forEach(function(b){b.classList.remove('active');}); btn.classList.add('active'); applyFilters(); };
+  window.setPriority = function(val, btn) { activePriority = val; document.querySelectorAll('.fpriority').forEach(function(b){b.classList.remove('active');}); btn.classList.add('active'); applyFilters(); };
+  renderStats(); renderStreams();
+})();
+</script>
+<script src="{{ theme_js_url | default('../assets/js/theme.js') }}"></script>
+</body>
+</html>

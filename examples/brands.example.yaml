@@ -1,0 +1,16 @@
+brand:
+  name: DemoBrand
+  domain: example.com
+  tagline: AI-powered creative toolkit for musicians and creators
+  description: A demo brand configuration for Open Growth Intel landing pages.
+  email: hello@example.com
+  social:
+    x: https://x.com/example
+    youtube: https://youtube.com/@example
+    github: https://github.com/example
+  assets:
+    logo_url: https://example.com/assets/logo.svg
+    og_image_url: https://example.com/assets/og-image.png
+  app:
+    creation_url: https://example.com/app/creation
+    pricing_url: https://example.com/pricing

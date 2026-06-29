@@ -1,0 +1,70 @@
+pages:
+- slug: band-name-generator
+  name: Band Name Generator
+  url_path: /tools/band-name-generator
+  competitor_url: https://example.com/competitor-a/tools/band-name-generator
+  page_type: B
+  tool_category: text
+  reference_template: band-name-generator
+  primary_keyword: band name generator
+  secondary_keywords:
+  - band name ideas
+  - ai band name generator
+  - rock band names
+  p1: 63
+  search_vol: 52400
+  status: built
+- slug: audio-to-video
+  name: Audio to Video
+  url_path: /tools/audio-to-video
+  competitor_url: https://example.com/competitor-a/tools/audio-to-video
+  page_type: C
+  tool_category: entry
+  reference_template: audio-to-video
+  primary_keyword: audio to video
+  secondary_keywords:
+  - audio to video converter
+  - convert audio to video
+  - mp3 to video
+  p1: 58
+  search_vol: 324850
+  status: built
+- slug: free-album-cover-generator
+  name: Album Cover Generator
+  url_path: /free-album-cover-generator
+  competitor_url: https://example.com/competitor-b/free-album-cover-generator
+  page_type: B
+  tool_category: image_canvas
+  reference_template: free-album-cover-generator
+  primary_keyword: free album cover generator
+  secondary_keywords:
+  - ai album cover generator
+  - album art generator
+  - spotify cover maker
+  p1: 17
+  search_vol: 65230
+  status: built
+- slug: ai-music-video-generator
+  name: AI Music Video Generator
+  url_path: /ai-music-video-generator
+  competitor_url: https://example.com/competitor-a/ai-music-video-generator
+  page_type: A
+  tool_category: entry
+  reference_template: audio-to-video
+  primary_keyword: ai music video generator
+  secondary_keywords:
+  - ai music video maker
+  - create music video with ai
+  - ai mv generator
+  p1: 80
+  search_vol: 288770
+  status: pending
+  tool_card:
+    prompt_placeholder: Describe the visual vibe of your music video...
+    placeholder_examples:
+    - Neon-lit Tokyo street, rain on glass, bass drops in slow motion...
+    - Anime romance, cherry blossoms falling, soft piano melody...
+    - Desert road at sunset, indie folk, cinematic wide shots...
+    result_type: redirect_entry
+    redirect_url: https://example.com/app/creation
+    generate_btn: Create Music Video

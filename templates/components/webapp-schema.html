@@ -1,0 +1,16 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "{{ app_name }}",
+  "description": "{{ app_description }}",
+  "applicationCategory": "{{ app_category | default('MultimediaApplication') }}",
+  "operatingSystem": "{{ os | default('Any') }}",
+  "offers": {
+    "@type": "Offer",
+    "price": "{{ price | default('0') }}",
+    "priceCurrency": "{{ currency | default('USD') }}"
+  },
+  "url": "{{ canonical_url }}"
+}
+</script>

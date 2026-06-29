@@ -1,0 +1,10 @@
+<footer class="site-footer" style="position:relative;z-index:1;padding:28px 24px;text-align:center;font-size:.75rem;color:var(--muted);border-top:1px solid var(--line);margin-top:40px;">
+  <p>{{ footer_text | default('Open Growth Intel · 个人开源增长工具集') }}</p>
+  {% if links %}
+  <div style="display:flex;gap:16px;justify-content:center;margin-top:8px;">
+    {% for link in links %}
+    <a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.label }}</a>
+    {% endfor %}
+  </div>
+  {% endif %}
+</footer>

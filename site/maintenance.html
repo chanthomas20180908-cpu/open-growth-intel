@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>维护说明 — Open Growth Intel</title>
+<style>
+:root { --bg:#050b07; --bg-grid:rgba(155,220,42,.045); --panel:#0b140e; --panel2:#0f1b13; --line:#213124; --line-soft:#17231a; --text:#dce6d7; --muted:#788574; --faint:#4d5a4b; --green:#9bdc2a; --green-soft:rgba(155,220,42,.08); }
+[data-theme="light"]{--bg:#ffffff;--bg-grid:rgba(26,127,55,.025);--panel:#f6f8fa;--panel2:#eaeef2;--line:#d0d7de;--line-soft:#eaeef2;--text:#1f2328;--muted:#656d76;--faint:#818c98;--green:#1a7f37;--green-soft:rgba(26,127,55,.08);}
+[data-theme="light"] body{background:var(--bg);}
+[data-theme="light"] body::before{opacity:.1;}
+[data-theme="light"] .header h1{color:var(--text);text-shadow:none;}
+[data-theme="light"] .nav-links{border-bottom-color:var(--line);background:none;}
+#theme-toggle{background:none;border:1px solid var(--line);color:var(--muted);cursor:pointer;border-radius:6px;padding:2px 9px;font-size:13px;font-family:inherit;transition:all .12s;margin-left:12px;flex-shrink:0;align-self:center;}
+#theme-toggle:hover{border-color:var(--green);color:var(--green);}
+* { box-sizing:border-box; margin:0; padding:0; }
+html { background:var(--bg); overscroll-behavior:none; }
+body { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'PingFang SC',monospace; background:radial-gradient(circle at 18% -10%,rgba(155,220,42,.09),transparent 32%),linear-gradient(180deg,#07100a 0%,var(--bg) 38%,#030604 100%); color:var(--text); font-size:14px; line-height:1.6; min-height:100vh; }
+body::before { content:""; position:fixed; inset:0; pointer-events:none; background-image:linear-gradient(var(--bg-grid) 1px,transparent 1px),linear-gradient(90deg,var(--bg-grid) 1px,transparent 1px); background-size:42px 42px; mask-image:linear-gradient(180deg,rgba(0,0,0,.8),rgba(0,0,0,.18)); }
+a { color:var(--green); text-decoration:none; } a:hover { text-decoration:underline; text-underline-offset:3px; opacity:.9; }
+.page { max-width:1200px; margin:0 auto; padding:28px 32px 80px; position:relative; z-index:1; }
+.topbar { display:flex; align-items:center; gap:8px; margin-bottom:24px; font-size:12px; color:var(--faint); text-transform:uppercase; letter-spacing:.04em; }
+.topbar a { color:var(--faint); } .topbar a:hover { color:var(--green); } .sep { color:var(--line); }
+.header{display:grid;grid-template-columns:minmax(280px,1fr) minmax(340px,auto);gap:28px;align-items:start;margin-bottom:22px;}
+.header h1 { font-size:26px; font-weight:900; letter-spacing:-0.02em; margin-bottom:4px; color:#eef8e8; text-shadow:0 0 26px rgba(155,220,42,.1); }
+.header h1 span { color:var(--green); }
+.sub { color:var(--faint); font-size:12px; }
+.nav-links{display:flex;flex-wrap:wrap;gap:0;justify-content:flex-end;align-self:start;margin-top:4px;padding:0 0 12px;background:linear-gradient(90deg,transparent,rgba(155,220,42,.035) 42%,rgba(155,220,42,.018) 74%,transparent);border-bottom:1px solid rgba(155,220,42,.18);}
+.nav-links::before{content:"NAV";align-self:center;margin-right:18px;color:#53624f;font-size:.58rem;font-weight:900;letter-spacing:.16em;}
+.nav-links a{position:relative;display:inline-flex;align-items:center;min-height:28px;padding:0 16px;color:#84917d;font-size:.74rem;font-weight:850;white-space:nowrap;letter-spacing:.02em;transition:color .14s,text-shadow .14s;}
+.nav-links a+a{border-left:1px solid rgba(155,220,42,.13);}
+.nav-links a::before{content:"";position:absolute;left:16px;right:16px;bottom:-13px;height:1px;background:transparent;transition:background .14s,box-shadow .14s,height .14s;}
+.nav-links a::after{content:"";position:absolute;left:16px;bottom:-15px;width:5px;height:5px;border-radius:999px;background:rgba(155,220,42,0);transition:background .14s,box-shadow .14s;}
+.nav-links a:hover{color:#e6f1df;text-decoration:none;opacity:1;text-shadow:0 0 10px rgba(155,220,42,.16);}
+.nav-links a:hover::before{background:rgba(155,220,42,.28);}
+.nav-links a.active{color:var(--green);font-weight:950;text-shadow:0 0 14px rgba(155,220,42,.26);}
+.nav-links a.active::before{height:2px;background:var(--green);box-shadow:0 0 16px rgba(155,220,42,.7);}
+.nav-links a.active::after{background:var(--green);box-shadow:0 0 12px rgba(155,220,42,.72);}
+@media(max-width:900px){.header{grid-template-columns:1fr;}.nav-links{justify-content:flex-start;margin-top:8px;}}
+.section-block { margin-bottom:28px; }
+.section-hd { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:14px; padding-bottom:10px; border-bottom:1px solid var(--line); }
+.section-hd h2 { font-size:16px; font-weight:900; color:#eef8e8; }
+.section-hd .note { font-size:12px; color:var(--muted); }
+.card-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; }
+.card { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:16px; }
+.card h3 { font-size:14px; font-weight:700; margin-bottom:6px; color:#dce6d7; }
+.eyebrow { font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--green); font-weight:700; margin-bottom:6px; }
+.muted { color:var(--muted); }
+.mono { font-family:ui-monospace,Menlo,monospace; font-size:12px; word-break:break-all; color:#94a58c; }
+.stack { display:grid; gap:12px; }
+.stack .card h3 { font-size:13px; margin-bottom:4px; }
+.rule-box { background:var(--panel); border:1px solid var(--line); border-radius:10px; overflow:hidden; margin-bottom:12px; }
+.rule-row { display:flex; align-items:flex-start; gap:12px; padding:12px 16px; border-bottom:1px solid var(--line-soft); }
+.rule-row:last-child { border-bottom:none; }
+.rule-num { font-size:12px; font-weight:700; color:var(--green); min-width:20px; }
+.rule-body h4 { font-size:13px; font-weight:700; margin-bottom:3px; color:#dce6d7; }
+.rule-body p { font-size:12px; color:var(--muted); }
+.tree { font-family:ui-monospace,Menlo,monospace; font-size:12px; line-height:1.8; color:var(--muted); background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:18px 20px; overflow-x:auto; white-space:pre; }
+.tree .hi { color:var(--green); }
+.tree .dim { color:var(--faint); }
+.tree .label { color:#94a58c; }
+</style>
+<script>document.documentElement.setAttribute('data-theme',localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark'));</script>
+</head>
+<body>
+<div class="page">
+  <div class="topbar"><a href="index.html">Open Growth Intel</a><span class="sep">/</span><span>维护说明</span></div>
+  <div class="header">
+    <div>
+      <h1>维护说明 <span>·</span> Maintenance Guide</h1>
+      <div class="sub">最后更新：2026-06-29</div>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">总览</a>
+      <a href="worklog.html">工作记录</a>
+      <a href="maintenance.html" class="active">维护说明</a>
+      <button id="theme-toggle" onclick="toggleTheme()" title="切换亮/暗色">☀</button>
+    </nav>
+  </div>
+
+  <div class="section-block">
+    <div class="section-hd"><h2>架构设计</h2><span class="note">当前版本：自包含 HTML + JSON 数据源</span></div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="eyebrow">数据层</div>
+        <h3>JSON 数据源</h3>
+        <div class="muted">管理页面使用独立的 JSON 文件（<span class="mono">site/data/worklog.json</span> 等）作为数据源，通过 Jinja2 或浏览器 JS 渲染为 HTML。无数据库、无构建步骤。</div>
+      </div>
+      <div class="card">
+        <div class="eyebrow">渲染层</div>
+        <h3>模板化生成</h3>
+        <div class="muted">落地页通过 <span class="mono">templates/landing/</span> 下的 Jinja2 模板生成；管理页通过 CLI 更新 JSON 后重新渲染。</div>
+      </div>
+      <div class="card">
+        <div class="eyebrow">部署层</div>
+        <h3>GitHub Pages 静态托管</div>
+        <div class="muted">所有产物均为静态 HTML/CSS/JS，通过 GitHub Actions 自动部署到 <span class="mono">gh-pages</span> 分支。无服务器维护。</div>
+      </div>
+      <div class="card">
+        <div class="eyebrow">交互层</div>
+        <h3>Claude Code Skill + CLI</h3>
+        <div class="muted">Skill 负责解析用户意图并调用底层 CLI；CLI 负责实际文件操作。用户也可脱离 Skill 直接使用 CLI。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-hd"><h2>页面类型一览</h2><span class="note">四套模板对应不同增长场景</span></div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="eyebrow">类型 A — 核心转化页</div>
+        <h3>Type A</h3>
+        <div class="muted">主题：暗色优先 + 高对比 accent<br>
+        结构：Hero + 价值主张 + 功能网格 + FAQ + CTA<br>
+        用途：高搜索量核心关键词（如 /ai-music-video-generator）</div>
+      </div>
+      <div class="card">
+        <div class="eyebrow">类型 B — 单工具页</div>
+        <h3>Type B</h3>
+        <div class="muted">主题：同暗色优先<br>
+        结构：工具入口 + 交互演示 + 使用步骤 + 相关工具<br>
+        用途：具体工具关键词（如 /tools/band-name-generator）</div>
+      </div>
+      <div class="card">
+        <div class="eyebrow">类型 C — 工具入口/Hub 页</div>
+        <h3>Type C</h3>
+        <div class="muted">主题：同暗色优先<br>
+        结构：指标卡 + entry-card 网格 + 子页面导航<br>
+        用途：聚合入口（如 /tools/audio-to-video）</div>
+      </div>
+      <div class="card">
+        <div class="eyebrow">Article — 文章页</div>
+        <h3>Article</h3>
+        <div class="muted">主题：同暗色优先，阅读友好<br>
+        结构：面包屑 + 标题 + 元信息 + 正文 + 相关推荐<br>
+        用途：教程/榜单/对比类内容</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-hd"><h2>AI 更新操作规程</h2></div>
+    <div class="rule-box">
+      <div class="rule-row">
+        <span class="rule-num">1</span>
+        <div class="rule-body">
+          <h4>定位目标页面</h4>
+          <p>确定要修改的管理页，打开对应的 <span class="mono">site/*.html</span> 文件或其数据源 <span class="mono">site/data/*.json</span>。</p>
+        </div>
+      </div>
+      <div class="rule-row">
+        <span class="rule-num">2</span>
+        <div class="rule-body">
+          <h4>更新数据源</h4>
+          <p>在 JSON 文件中增加、修改或删除记录。优先通过 CLI 命令 <span class="mono">ogi site update --page worklog --entry "..."</span> 完成。</p>
+        </div>
+      </div>
+      <div class="rule-row">
+        <span class="rule-num">3</span>
+        <div class="rule-body">
+          <h4>重新渲染 HTML</h4>
+          <p>CLI 在更新 JSON 后自动调用 Jinja2 重新生成对应 HTML。本地用浏览器打开验证。</p>
+        </div>
+      </div>
+      <div class="rule-row">
+        <span class="rule-num">4</span>
+        <div class="rule-body">
+          <h4>更新统计数字</h4>
+          <p>如修改影响首页统计，同步更新 <span class="mono">site/index.html</span> 中的 <span class="mono">.stat-pill .num</span>。</p>
+        </div>
+      </div>
+      <div class="rule-row">
+        <span class="rule-num">5</span>
+        <div class="rule-body">
+          <h4>运行敏感信息扫描</h4>
+          <p>提交前执行验证清单中的 grep 命令，确认无密钥、无本地路径、无真实品牌名残留。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-hd"><h2>工作记录新增规范</h2><span class="note">worklog.html records[] 数组，插入到最前</span></div>
+    <div class="rule-box">
+      <div class="rule-row">
+        <span class="rule-num">①</span>
+        <div class="rule-body">
+          <h4>字段结构（每条记录必填）</h4>
+          <p><span class="mono">id</span>：全局唯一，格式 WL-[主题关键词][MMDD]<br>
+          <span class="mono">time</span>：<span class="mono">YYYY-MM-DD</span><br>
+          <span class="mono">action</span>：<span class="mono">create | update | delete | confirm</span><br>
+          <span class="mono">entity</span>：业务实体分类（如 growth-site / landing-builder / competitor-report）<br>
+          <span class="mono">name</span>：动作-对象-版本/范围（简洁，15字内）</p>
+        </div>
+      </div>
+      <div class="rule-row">
+        <span class="rule-num">②</span>
+        <div class="rule-body">
+          <h4>内容字段</h4>
+          <p><span class="mono">description</span>：一句话摘要<br>
+          <span class="mono">purpose</span>：为什么做<br>
+          <span class="mono">include</span>：本次实际包含的范围<br>
+          <span class="mono">exclude</span>：明确不包含的边界<br>
+          <span class="mono">conclusion</span>：核心判断或结果<br>
+          <span class="mono">todo</span>：下一步待办（无则留空）<br>
+          <span class="mono">hack</span>：临时处理、已知遗漏或风险（无则留空）</p>
+        </div>
+      </div>
+      <div class="rule-row">
+        <span class="rule-num">③</span>
+        <div class="rule-body">
+          <h4>impact 影响文件数组</h4>
+          <p><span class="mono">impact: [ { path: "相对项目根的路径", note: "新建/更新/说明" } ]</span></p>
+        </div>
+      </div>
+      <div class="rule-row">
+        <span class="rule-num">④</span>
+        <div class="rule-body">
+          <h4>search 搜索补全</h4>
+          <p>补充该条记录的关键词，空格分隔，供搜索框命中。包含主题词 + 日期 + 涉及文件名关键词。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-hd"><h2>全局导航维护规范</h2><span class="note">全站统一 3 项</span></div>
+    <div class="stack">
+      <div class="card">
+        <h3>3 项固定导航（所有页面 topbar 右侧）</h3>
+        <div class="muted">总览（index.html）· 工作记录（worklog.html）· 维护说明（maintenance.html）<br>
+        新建任何页面时必须在 topbar 加入此 nav，路径根据当前文件深度调整 <span class="mono">../</span> 层级。</div>
+      </div>
+      <div class="card">
+        <h3>HTML 属性引号规范</h3>
+        <div class="muted">
+          <span class="mono">class / style / href / src / id / target / rel</span> 等属性值边界必须用英文半角 <span class="mono">"..."</span>，严禁使用中文弯引号。<br>
+          每次改 HTML 后用 <span class="mono">rg -n 'class=[""]|style=[""]|href=[""]' 文件路径</span> 检查，无结果才算合格。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-hd"><h2>项目结构</h2><span class="note">当前目标结构</span></div>
+    <pre class="tree"><span class="hi">open-growth-intel/</span>
+<span class="dim">│</span>
+<span class="dim">├─</span> <span class="hi">cli/</span>                  <span class="label">Typer CLI 入口与命令实现</span>
+<span class="dim">│   ├─</span> main.py              <span class="label">ogi 统一入口</span>
+<span class="dim">│   ├─</span> site.py              <span class="label">growth-site 命令</span>
+<span class="dim">│   ├─</span> landing.py           <span class="label">landing-builder 命令</span>
+<span class="dim">│   └─</span> competitor.py        <span class="label">competitor-report 命令</span>
+<span class="dim">│</span>
+<span class="dim">├─</span> <span class="hi">skills/</span>               <span class="label">Claude Code Skill 定义</span>
+<span class="dim">│   ├─</span> growth-site/
+<span class="dim">│   ├─</span> landing-builder/
+<span class="dim">│   └─</span> competitor-report/
+<span class="dim">│</span>
+<span class="dim">├─</span> <span class="hi">templates/</span>            <span class="label">Jinja2 页面模板</span>
+<span class="dim">│   ├─</span> landing/type-a|b|c|article/
+<span class="dim">│   └─</span> components/
+<span class="dim">│</span>
+<span class="dim">├─</span> <span class="hi">site/</span>                 <span class="label">静态管理页面（GitHub Pages）</span>
+<span class="dim">│   ├─</span> index.html
+<span class="dim">│   ├─</span> worklog.html
+<span class="dim">│   ├─</span> maintenance.html
+<span class="dim">│   ├─</span> assets/css/main.css
+<span class="dim">│   ├─</span> assets/js/theme.js
+<span class="dim">│   └─</span> data/*.json
+<span class="dim">│</span>
+<span class="dim">├─</span> <span class="hi">examples/</span>             <span class="label">Mock 配置与示例输出</span>
+<span class="dim">├─</span> <span class="hi">docs/</span>                 <span class="label">文档</span>
+<span class="dim">├─</span> <span class="hi">tests/</span>                <span class="label">测试</span>
+<span class="dim">└─</span> <span class="hi">pyproject.toml</span>        <span class="label">Python 包配置</span></pre>
+  </div>
+
+</div>
+<script src="assets/js/theme.js"></script>
+</body>
+</html>

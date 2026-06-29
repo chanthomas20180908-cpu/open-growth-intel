@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open Growth Intel</title>
+<script>document.documentElement.setAttribute('data-theme',localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark'));</script>
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+
+  <div class="header-bar">
+    <div class="brand">
+      <h1>Open Growth Intel</h1>
+      <div class="sub"><span>Updated 2026-06-29</span><span>Demo Project</span></div>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html" class="active">总览</a>
+      <a href="worklog.html">工作记录</a>
+      <a href="maintenance.html">维护说明</a>
+      <button id="theme-toggle" onclick="toggleTheme()" title="切换亮/暗色">☀</button>
+    </nav>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-pill highlight"><div class="num">3</div><div class="lbl">Skill</div></div>
+    <div class="stat-pill highlight"><div class="num">4</div><div class="lbl">页面类型</div></div>
+    <div class="stat-pill highlight"><div class="num">0</div><div class="lbl">任务总数</div></div>
+    <div class="stat-pill s-done"><div class="num">0</div><div class="lbl">已完成</div></div>
+    <div class="stat-pill s-doing"><div class="num">0</div><div class="lbl">进行中</div></div>
+    <div class="stat-pill s-todo"><div class="num">0</div><div class="lbl">待办</div></div>
+  </div>
+
+  <div class="section-hd"><h2>能力单元</h2></div>
+  <div class="domain-grid">
+
+    <a class="domain-card c-teal" href="#">
+      <div class="domain-eyebrow">Skill 01</div>
+      <div class="domain-title">growth-site · 增长站点管理</div>
+      <div class="domain-metrics">
+        <span class="metric m-total">管理页面</span>
+        <span class="metric m-done">本地预览</span>
+      </div>
+    </a>
+
+    <a class="domain-card c-violet" href="#">
+      <div class="domain-eyebrow">Skill 02</div>
+      <div class="domain-title">landing-builder · 落地页生成</div>
+      <div class="domain-metrics">
+        <span class="metric m-total">A/B/C/Article</span>
+        <span class="metric m-done">SEO/GEO Schema</span>
+      </div>
+    </a>
+
+    <a class="domain-card c-coral" href="#">
+      <div class="domain-eyebrow">Skill 03</div>
+      <div class="domain-title">competitor-report · 竞品情报</div>
+      <div class="domain-metrics">
+        <span class="metric m-total">公开 URL</span>
+        <span class="metric m-done">双周报</span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="assets-hd"><h2>快速资产</h2><span>示例链接</span></div>
+  <div class="asset-grid">
+    <a class="asset-card" href="https://example.com/docs" target="_blank" rel="noopener">
+      <div class="asset-eyebrow">文档 · Documentation</div>
+      <div class="asset-title">项目 README 与使用说明</div>
+      <div class="asset-meta">安装 · CLI 演示 · Skill 触发示例</div>
+    </a>
+    <a class="asset-card" href="https://example.com/demo" target="_blank" rel="noopener">
+      <div class="asset-eyebrow">示例 · Demo</div>
+      <div class="asset-title">示例落地页与竞品报告</div>
+      <div class="asset-meta">Mock 品牌 · 可离线打开 · 无敏感数据</div>
+    </a>
+  </div>
+
+<script src="assets/js/theme.js"></script>
+</body>
+</html>

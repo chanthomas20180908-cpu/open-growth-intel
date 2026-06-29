@@ -1,0 +1,6 @@
+<nav class="page-nav">
+  {% for item in nav_items | default([]) %}
+  <a href="{{ item.url }}">{{ item.label }}</a>
+  {% endfor %}
+  <button id="theme-toggle" onclick="toggleTheme()" title="切换亮/暗色">☀</button>
+</nav>
