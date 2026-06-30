@@ -1,11 +1,25 @@
 import subprocess
 import sys
+import unittest
 
-def test_cli_help():
-    """Smoke test: CLI entry point loads without error."""
-    result = subprocess.run(
-        [sys.executable, "-m", "cli.page_builder"],
-        capture_output=True,
-        text=True,
-    )
-    assert "Open Growth Intelligence" in result.stdout or result.returncode == 0
+
+class CLISmokeTests(unittest.TestCase):
+    def test_page_builder_module_loads(self):
+        result = subprocess.run(
+            [sys.executable, "-m", "cli.page_builder"],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0)
+        self.assertIn("Open Growth Intelligence", result.stdout)
+
+    def test_main_cli_imports(self):
+        result = subprocess.run(
+            [sys.executable, "-c", "import cli.main; print('ok')"],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0)
+        self.assertIn("ok", result.stdout)

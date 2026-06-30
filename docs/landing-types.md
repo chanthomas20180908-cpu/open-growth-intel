@@ -34,6 +34,21 @@
 - 所有含 FAQ 的页面：必须包含 `FAQPage` LD+JSON。
 - Article 页：必须包含 `Article` LD+JSON。
 
+## 当前 CLI 输入约束
+
+- 公共必填参数：`--type`、`--brand`、`--output`
+- Type A/B/C：额外必填 `--keyword`
+- Article：额外必填 `--title`
+- 可选参数：`--value-prop`、`--faq-items`
+- `--faq-items` 可传 JSON/YAML 字符串，或指向本地 JSON/YAML 文件
+
+## 当前输出约束
+
+- 生成结果是单个 HTML 文件
+- 输出目录不存在时自动创建
+- HTML 必含 `title`、`meta description`、`canonical`、`og:*`、`twitter:card`
+- 渲染结果不得残留未展开的 `{{ ... }}` 模板占位符
+
 ## 设计系统
 
 - 暗色优先：`#050b07` 背景 + `#9bdc2a` accent

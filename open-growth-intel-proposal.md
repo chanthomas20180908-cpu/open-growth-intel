@@ -1,7 +1,5 @@
 # 海外增长能力抽象开源项目总体方案
 
-> 说明：本文档是项目提案与规划记录，不代表当前仓库的完整实现状态。当前可运行的统一 CLI 以 `README.md`、`CLAUDE.md`、`AGENTS.md` 为准。
-
 ## Context
 
 原项目 `/Users/test/code/overseas_growth` 是 OhYesAI 海外出海增长项目，积累了 SEO/GEO 落地页、竞品情报、增长记录中心、关键词分析等能力。目标是将其中**可公开、可复用、低敏感**的部分抽象为个人 GitHub 开源项目，作为面试作品集和长期维护资产。
@@ -116,95 +114,6 @@
 - 交叉验证：30 分钟
 - 降维整合：30 分钟
 - **总计约 2.5 小时**
-
----
-
-## Phase 0.5: 资产迁移方案（只迁移，不新增）
-
-在用户确认继续推进前，先将 `overseas_growth` 中**可公开、可复用、低敏感**的资产复制到新项目目录 `/Users/test/code/open-growth-intel`，**只做 cp + 清洗，不写新功能**。
-
-### 迁移原则
-
-1. **只 cp 可复用骨架**：模板、脚本结构、配置 schema、设计系统、方法论文档。
-2. **绝不迁移**：原始数据、`/材料/`、`/分析结果/`、真实竞品报告、state 快照、付费工具导出、内部财务/品牌信息。
-3. **必须清洗**：所有 OhYesAI 品牌名、真实竞品名/URL、硬编码本地路径（`/Users/test/...`）、API key 占位符、中文内部目录名引用。
-4. **示例化**：所有配置用 `example.com` / `DemoBrand` / `competitor-a` 等占位符。
-
-### 可迁移资产清单
-
-| 目标目录 | 来源文件 | 迁移后用途 | 清洗重点 |
-|---|---|---|---|
-| `cli/` | `tools/page_builder/page_builder.py` | CLI 骨架（manifest 读写、竞品 URL 抓取） | 替换 `PROJECT_ROOT` 等硬编码路径；移除 OhYesAI 品牌名；将 `pages_manifest.yaml` 路径改为 CLI 参数 |
-| `cli/` | `tools/page_builder/requirements.txt` | Python 依赖清单 | 补充 `typer`、`jinja2` |
-| `examples/` | `tools/page_builder/pages_manifest.yaml` | 页面 manifest 示例 | 替换 `neuralframes.com` / `freebeat.ai` / `ohyesai.com` 为 `example.com`；仅保留 3-4 条示例 |
-| `examples/` | `tools/competitor_intel/config/competitors.yaml` | 竞品监控配置示例 | 替换真实竞品名/URL/social handle 为 mock；保留 GIQ、source taxonomy、monitoring schema |
-| `site/assets/css/main.css` | `record_center/site/index.html` 内联样式 | 设计系统 CSS | 提取 `:root` 变量与亮暗主题；移除品牌专属色硬编码 |
-| `site/assets/js/theme.js` | `record_center/site/index.html` 主题脚本 | 亮暗切换 JS | 提取为独立文件 |
-| `site/index.html` | `record_center/site/index.html` | 项目总览页 | 移除 D00-D11 真实 domain 卡片与本地文件链接；替换 OhYesAI；保留 dashboard 布局 |
-| `site/worklog.html` | `record_center/site/worklog.html` | 工作记录页 | 清空真实 records，仅保留 1 条示例数据；保留 timeline/filter 结构 |
-| `site/maintenance.html` | `record_center/site/maintenance.html` | 维护说明页 | 移除真实项目路径树；保留 page type 分类与更新规则 |
-| `templates/components/` | `record_center/site/index.html` / `domains/d03-seo.html` / `d04-geo.html` | nav / footer / theme-toggle / card 组件 | 提取为 Jinja2 partial；占位符化品牌/URL |
-| `templates/landing/type-a/` | `record_center/site/domains/d03-seo.html` | Hub 型落地页模板 | Jinja2 化所有内容；移除真实数据 |
-| `templates/landing/type-b/` | `record_center/site/domains/d04-geo.html` | 诊断/入口型落地页模板 | Jinja2 化 |
-| `templates/landing/type-c/` | `record_center/site/domains/d01-growth-infrastructure.html` | 标准任务表型模板 | Jinja2 化；保留 JSON-in-script 数据模式 |
-| `docs/` | `tools/competitor_intel/design.html` | 竞品情报方法论 | 提取 GIQ / signal taxonomy / verification / report template；移除 OhYesAI 引用 |
-| `docs/` | `record_center/site/maintenance.html` | 站点架构说明 | 提取 page type 与更新规则 |
-| `docs/` | `open-growth-intel-proposal.md` | 项目提案 | 迁移为本项目 docs |
-
-### 禁止迁移清单
-
-| 来源 | 原因 |
-|---|---|
-| `/材料/` | 原始研究材料，可能含版权/内部信息 |
-| `/分析结果/`、历史版本目录 | 付费工具导出、关键词分析、内部财务数据 |
-| `tools/competitor_intel/reports/*.md` / `*.html` | 真实竞品双周报，含定价/产品/媒体情报 |
-| `tools/competitor_intel/state/`（含 `content/*.json.gz`、`fingerprints/*.jsonl`、`inventory/*.jsonl`） | 竞品全站内容快照、指纹、URL 清单 |
-| `record_center/site/domains/d00-competitive-intelligence.html`、`d00-intel-reports.html` | 真实竞品情报入口 |
-| `record_center/site/domains/d01-growth-infrastructure.html` 至 `d11-owned-media-organic-social.html` | 真实 OhYesAI 任务与规划数据 |
-| `record_center/site/domains/seo-backlinks.html`、`geo-*.html` | 真实 backlink、GEO 测试与策略数据 |
-| `record_center/site/archive/` | 历史归档含内部数据 |
-| `handover/`、`payment/`、`settings/`、`test_结果/`、`research/`（除调研结论）、`计划/`、`方法/`、`调研/`、`分类结果/` | 内部文档、测试数据、计划、研究原始产出 |
-| `freebeat_review_analysis.html`、`neural_frames_review_analysis.html`、`google_ads_vidmuse_report.md` | 真实竞品评论/广告分析 |
-| `theme_preview.html` | OhYesAI 品牌主题预览 |
-| `海外增长建设总结_20260617.md`、`简历_海外增长工作事实_20260617.md` | 个人/内部总结 |
-| 其他 `tools/*.py/*.js`（`fix_faq_articles.py`、`fix_single_tools.py`、`migrate_articles_*.py`、`update_hero_images.py`、`generate_neural_frames_review_report.js`） | OhYesAI 专用一次性修复脚本，含真实数据处理 |
-| 源项目 `.git` 历史 | 避免泄露敏感 commit |
-
-### 推荐执行顺序
-
-1. **创建 `site/assets/`**：提取 CSS/JS。
-2. **迁移 `site/` 三页**：index / worklog / maintenance，同步清洗。
-3. **迁移 `templates/`**：从 `record_center/site/domains/` 提取组件与 A/B/C 模板。
-4. **迁移 `cli/`**：复制 `page_builder.py` 并参数化路径，写 `requirements.txt`。
-5. **迁移 `examples/`**：生成 mock 版 `competitors.example.yaml` 与 `pages_manifest.example.yaml`。
-6. **迁移 `docs/`**：提取方法论与架构说明。
-7. **创建根文件**：`README.md`、`CLAUDE.md`、`pyproject.toml`、`.gitignore`。
-8. **验证扫描**：执行下方检查命令，确保无残留敏感信息。
-
-### 迁移后验证清单
-
-```bash
-# 1. 密钥/Token
-grep -riE 'sk-[a-zA-Z0-9]{20,}|sk-ant-|api[_-]?key|password|token|secret' . --exclude-dir=.git
-
-# 2. 本地路径
-grep -riE '/Users/|/home/|file:///Users/|C:\\\\Users\\\\' . --exclude-dir=.git
-
-# 3. 品牌/竞品名
-grep -riE 'ohyesai|oh yes ai|freebeat|neuralframes|neural frames|vidmuse|tunee' . --exclude-dir=.git
-
-# 4. 真实竞品域名
-grep -riE 'https?://(www\.)?(neuralframes|freebeat|vidmuse|tunee)\.' . --exclude-dir=.git
-
-# 5. 中文内部目录
-grep -riE '分析结果|材料|record_center' . --exclude-dir=.git
-
-# 6. 大数据/快照文件
-find . -type f -size +1M -not -path './.git/*'
-find . -name '*.gz' -o -name '*.jsonl' -not -path './.git/*'
-```
-
-以上命令**必须全部无命中**，才能进入 Phase 1 实现。
 
 ---
 
@@ -341,7 +250,7 @@ open-growth-intel/
   - 可选：`{week}_summary.html` 静态摘要
 - **执行逻辑**：
   1. 读取 competitors.yaml，获取竞品名称、官网、sitemap、pricing、blog URL
-  2. 对每个竞品做轻量公开信息采集（sitemap 条目数、pricing 页文本 hash、blog RSS 条目）
+  2. 对每个竞品做轻量公开信息采集（sitemap 条目数、pricing 页文本 hash、blog RSS/最近文章）
   3. 与上一次输出对比，识别变化事件（新页面、定价文案变更、新博客）
   4. 生成结构化事件账本
   5. 按双周报模板生成 Markdown 报告
@@ -351,17 +260,16 @@ open-growth-intel/
 
 统一入口：`ogi`（Open Growth Intelligence 缩写）
 
-当前实现状态说明：
-
-- 已实现：`ogi landing build`
-- 规划中：`ogi site ...`、`ogi competitor ...`
-
 ```bash
+# 管理页面
+ogi site preview --page index
+ogi site update --page worklog --entry "完成 homepage v1 设计"
+
 # 落地页生成
 ogi landing build --type a --brand "DemoBrand" --keyword "ai music video generator" --output ./out/page.html
 
-# 文章页
-ogi landing build --type article --brand "DemoBrand" --title "Top 10 AI Music Video Tools" --output ./out/article.html
+# 竞品报告
+ogi competitor report --config ./examples/competitors.example.yaml --output-dir ./reports
 ```
 
 Skill 与 CLI 关系：Skill 是 Claude Code 的交互层，实际调用 CLI 命令执行。用户也可以脱离 Skill 直接使用 CLI。

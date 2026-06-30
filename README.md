@@ -32,15 +32,23 @@ open-growth-intel/
 pip install -r cli/requirements.txt
 pip install -e .
 
-# 预览站点
-ogi site preview --page index
-
 # 生成落地页
 ogi landing build --type a --brand "DemoBrand" --keyword "ai music video generator" --output ./out/page.html
 
-# 生成竞品报告
-ogi competitor report --config ./examples/competitors.example.yaml --output-dir ./reports
+# 生成文章页
+ogi landing build --type article --brand "DemoBrand" --title "Top 10 AI Music Video Tools" --output ./out/article.html
+
+# 运行测试
+python3 -m unittest discover -s tests -p 'test_*.py'
 ```
+
+## 当前实现状态
+
+- 已实现：`ogi landing build`
+- 已实现页面类型：`a`、`b`、`c`、`article`
+- 已实现能力：模板渲染、SEO metadata、`WebApplication` / `FAQPage` / `Article` schema 注入、FAQ 解析、输出目录自动创建
+- 尚未接入统一 CLI：`site`、`competitor`
+- 保留中的旧工具：`python3 -m cli.page_builder`，当前用于页面清单/竞品抓取实验，不是 `ogi landing build` 的底层入口
 
 ## 设计原则
 
