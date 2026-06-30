@@ -2,13 +2,13 @@
 
 个人开源增长工具集：将海外增长、SEO/GEO 落地页、竞品情报能力抽象为可复用的 Claude Code Skill + Python CLI。
 
-## 能力单元
+## 能力矩阵
 
-| Skill | 触发词 | 用途 |
-|---|---|---|
-| `growth-site` | `/growth-site` | 管理静态增长站点（总览 / 工作记录 / 维护说明） |
-| `landing-builder` | `/build-landing` | 基于 A/B/C/Article 模板生成 SEO/GEO 友好落地页 |
-| `competitor-report` | `/competitor-report` | 基于公开 URL 生成竞品双周报 + 事件账本 |
+| Skill | 触发词 | 用途 | CLI 状态 |
+|---|---|---|---|
+| `growth-site` | `/growth-site` | 管理静态增长站点（总览 / 工作记录 / 维护说明） | 规划态 |
+| `landing-builder` | `/build-landing` | 基于 A/B/C/Article 模板生成 SEO/GEO 友好落地页 | 已可用：`ogi landing build` |
+| `competitor-report` | `/competitor-report` | 基于公开 URL 生成竞品双周报 + 事件账本 | 规划态 |
 
 ## 项目结构
 
